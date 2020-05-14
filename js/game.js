@@ -33,8 +33,33 @@ function jouerbotalea(){
     jouer(cx,cy,isbot=true);
 }
 
+function eval_pos(plateau){
+    var position=1; // 0=faut pas 1=bof 2=bien
+    //on teste si le bot gagne
+    var posal=actualiser_pos_gagne(plateau);
+    var pa=teste_alignements(posesal);
+    //l'un des deux joueurs a gagne
+    if(pa!=null){
+        if(pa[0]==window.ajouer){ position=2; } 
+        else{ position=0; }
+    }
+    return position;
+}
+
+function rech_arbre(plateau){
+    //on regarde les coups possibles
+    var coupos={};
+    for(x=0;x<3;x++){
+        for(y=0;y<3;y++){
+            if(plateau[x][y]==0){ coupos[x,y]=Array.from(plateau); }
+        }
+    }
+    //on va tester chaque coup
+}
 
 function bot_arbre_jouer(){
+    //on va chercher la meilleure case
+
     //
     cx=parseInt(Math.random()*3);
     cy=parseInt(Math.random()*3);
