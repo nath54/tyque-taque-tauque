@@ -1,59 +1,25 @@
 window.partie="pas commence";
 window.cases=[[0,0,0],[0,0,0],[0,0,0]];
 
-function actualiser_pos_gagne(){
-    window.posalignments=[
-        [window.cases[0][0],window.cases[1][0],window.cases[2][0],[0,0],[1,0],[2,0]],
-        [window.cases[0][1],window.cases[1][1],window.cases[2][1],[0,1],[1,1],[2,1]],
-        [window.cases[0][2],window.cases[1][2],window.cases[2][2],[0,2],[1,2],[2,2]],
-        [window.cases[0][0],window.cases[0][1],window.cases[0][2],[0,0],[0,1],[0,2]],
-        [window.cases[1][0],window.cases[1][1],window.cases[1][2],[1,0],[1,1],[1,2]],
-        [window.cases[2][0],window.cases[2][1],window.cases[2][2],[2,0],[2,1],[2,2]],
-        [window.cases[0][0],window.cases[1][1],window.cases[2][2],[0,0],[1,1],[2,2]],
-        [window.cases[2][0],window.cases[1][1],window.cases[0][2],[2,0],[1,1],[0,2]]
-    ];
-}
 
-function nettoyage_table(){
-    for(x=0;x<=2;x++){
-        for(y=0;y<=2;y++){
-            for(c of document.getElementById("case"+x+y).children){
-                document.getElementById("case"+x+y).removeChild(c);
-            }
-            document.getElementById("case"+x+y).children=[];
-            document.getElementById("case"+x+y).setAttribute("class","case");
-        }
-    }
-}
 
 function test_gagne(){
     //test des alignements
-    actualiser_pos_gagne();
-    if(window.partie=="en cour"){
-        for(pa of window.posalignments){
-            if((pa[0]==1 && pa[1]==1 && pa[2]==1) || (pa[0]==2 && pa[1]==2 && pa[2]==2)){
-                window.partie="finie";
-                window.gagne=pa[0];
-                document.getElementById("case"+pa[3][0]+pa[3][1]).setAttribute("class","case_victoire");
-                document.getElementById("case"+pa[4][0]+pa[4][1]).setAttribute("class","case_victoire");
-                document.getElementById("case"+pa[5][0]+pa[5][1]).setAttribute("class","case_victoire");
-            }
-            
-        }
+    var posesal=actualiser_pos_gagne(window.cases);
+    var pa=teste_alignements(posesal);
+    if(pa!=null){
+        document.getElementById("case"+pa[3][0]+pa[3][1]).setAttribute("class","case_victoire");
+        document.getElementById("case"+pa[4][0]+pa[4][1]).setAttribute("class","case_victoire");
+        document.getElementById("case"+pa[5][0]+pa[5][1]).setAttribute("class","case_victoire");
+        window.partie="finie";
+        window.gagne=pa[0];
     }
     //test pour egalité
     if(window.partie=="en cour"){
-        nbcasesvides=0;
-        for(x=0;x<3;x++){
-            for(y=0;y<3;y++){
-                if(window.cases[x][y]==0){
-                    nbcasesvides++;
-                }
-            }
-        }
+        var nbcasesvides=teste_egalite(window.cases);
         if(nbcasesvides==0){
             window.gagne=0;
-            window.partie="finie"
+            window.partie="finie";
         }
     }
     if(window.partie!="en cour"){
@@ -66,6 +32,17 @@ function jouerbotalea(){
     cy=parseInt(Math.random()*3);
     jouer(cx,cy,isbot=true);
 }
+
+
+function bot_arbre_jouer(){
+    //
+    cx=parseInt(Math.random()*3);
+    cy=parseInt(Math.random()*3);
+    //on joue
+    jouer(cx,cy,isbot=true);
+}
+
+
 
 function jouer(x,y,isbot=false){
     //alert(x+" "+y);
@@ -96,9 +73,12 @@ function jouer(x,y,isbot=false){
     //si le joueur suivant est un bot
     if(window.partie=="en cour"){
         if(window.js[window.ajouer-1]=="bot - aléatoire"){ jouerbotalea(); }
+        if(window.js[window.ajouer-1]=="bot - fort"){ bot_arbre_jouer(); }
     }
     
 }
+
+
 
 function init_partie(){
     //
@@ -120,8 +100,12 @@ function init_partie(){
     //si le joueur suivant est un bot
     if(window.partie=="en cour"){
         if(window.js[window.ajouer-1]=="bot - aléatoire"){ jouerbotalea(); }
+        if(window.js[window.ajouer-1]=="bot - fort"){ bot_arbre_jouer(); }
     }
 }
+
+
+
 
 function finit_partie(){
     var txt="égalité";

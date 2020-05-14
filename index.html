@@ -18,6 +18,7 @@
                         <select id="tj1">
                             <option>humain</option>
                             <option>bot - aléatoire</option>
+                            <option>bot - fort</option>
                         </select>
                     </td>
                 </tr>
@@ -29,6 +30,7 @@
                         <select id="tj2">
                             <option>humain</option>
                             <option>bot - aléatoire</option>
+                            <option>bot - fort</option>
                         </select>
                     </td>
                 </tr>
@@ -61,7 +63,7 @@
                         <p>Pion joueur 2 :</p>
                     </td>
                     <td>
-                        <input id="pj2" type="text" value="0" maxlength="1" />
+                        <input id="pj2" type="text" value="O" maxlength="1" />
                     </td>
                 </tr>
                 <!-- Annonce gagnant -->
@@ -91,6 +93,8 @@
         </div>
         
     </body>
-    <!-- Script du jeu-->
+    <!-- Scripts du jeu-->
+    <script src="js/lib.js" type="text/javascript"></script>
+    <script src="js/bot_arbre.js" type="text/javascript"></script>
     <script src="js/game.js" type="text/javascript"></script>
 </html>
