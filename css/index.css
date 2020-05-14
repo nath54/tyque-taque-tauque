@@ -30,6 +30,22 @@ table{
     margin-right: auto;
 }
 
+button{
+    padding:5px;
+    border:1px solid black;
+    border-radius: 7px;
+    background-color: azure;
+}
+button:hover{
+    border-radius: 10px;
+    background-color: beige;
+}
+
+#pj1,#pj2{
+    width:30px;
+    text-align:center;
+}
+
 /*
 CASES
 */
@@ -59,9 +75,10 @@ CASES
 
 
 .pion{
-    top:20px;
-    right:20px;
-    font-size: 50px;
+    position: relative;
+    bottom:55%;
+    left:25%;
+    font-size: 70px;
 }
 
 .case_victoire{ background-color: aquamarine; }

@@ -14,16 +14,17 @@ function actualiser_pos_gagne(){
     ];
 }
 
-
 function nettoyage_table(){
     for(x=0;x<=2;x++){
         for(y=0;y<=2;y++){
+            for(c of document.getElementById("case"+x+y).children){
+                document.getElementById("case"+x+y).removeChild(c);
+            }
             document.getElementById("case"+x+y).children=[];
             document.getElementById("case"+x+y).setAttribute("class","case");
         }
     }
 }
-
 
 function test_gagne(){
     //test des alignements
@@ -60,8 +61,13 @@ function test_gagne(){
     }
 }
 
+function jouerbotalea(){
+    cx=parseInt(Math.random()*3);
+    cy=parseInt(Math.random()*3);
+    jouer(cx,cy,isbot=true);
+}
 
-function jouer(x,y,pc=false){
+function jouer(x,y,isbot=false){
     //alert(x+" "+y);
     //on teste l'état de la partie
     if(window.partie!="en cour"){
@@ -69,7 +75,7 @@ function jouer(x,y,pc=false){
         return ;
     }
     //on teste que c'est bien le bon joueur qui joue
-    if( (pc==false && window.js[window.ajouer-1]!="humain") || (pc==true && window.js[window.ajouer-1]!="bot")){
+    if( (isbot==false && window.js[window.ajouer-1]!="humain") || (isbot==true && window.js[window.ajouer-1]=="humain")){
         return ;
     }
     //test case vide
@@ -77,6 +83,7 @@ function jouer(x,y,pc=false){
         //on joue le coup
         var c=document.createElement("p");
         c.setAttribute("class","pion");
+        c.style.color=window.jcolors[window.ajouer-1];
         c.innerHTML=window.cacs[window.ajouer-1];
         document.getElementById("case"+x+y).appendChild(c);
         window.cases[x][y]=window.ajouer;
@@ -86,35 +93,40 @@ function jouer(x,y,pc=false){
         if(window.ajouer==1){ window.ajouer=2; }
         else{ window.ajouer=1; }
     }
-    else{
-        //on ne peut pas jouer
+    //si le joueur suivant est un bot
+    if(window.partie=="en cour"){
+        if(window.js[window.ajouer-1]=="bot - aléatoire"){ jouerbotalea(); }
     }
+    
 }
-
 
 function init_partie(){
     //
     nettoyage_table();
     //
-    window.j1="humain";
-    window.j2="humain";
+    window.j1=document.getElementById("tj1").value;
+    window.j2=document.getElementById("tj2").value;
     window.js=[window.j1,window.j2];
-    window.cacj1="X";
-    window.cacj2="O";
+    window.cacj1=document.getElementById("pj1").value;
+    window.cacj2=document.getElementById("pj2").value;
     window.cacs=[window.cacj1,window.cacj2];
-    window.clj1="rgb(0,0,0);"
-    window.clj2="rgb(200,200,200);"
+    window.clj1=document.getElementById("clj1").value;
+    window.clj2=document.getElementById("clj2").value;
+    window.jcolors=[window.clj1,window.clj2];
     window.ajouer=1; //1 = j1 , 2 = j2 
     window.partie="en cour"
     window.cases=[[0,0,0],[0,0,0],[0,0,0]];
     window.gagne=null;
-    //
-    
+    //si le joueur suivant est un bot
+    if(window.partie=="en cour"){
+        if(window.js[window.ajouer-1]=="bot - aléatoire"){ jouerbotalea(); }
+    }
 }
-
 
 function finit_partie(){
-
+    var txt="égalité";
+    if(window.gagne==1){ txt="le joueur 1 a gagné !"; }
+    else if(window.gagne==2){ txt="le joueur 2 a gagné !"; }
+    document.getElementById("gagnant").innerHTML=txt;
 }
-
 
