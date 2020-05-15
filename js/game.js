@@ -5,7 +5,7 @@ window.cases=[[0,0,0],[0,0,0],[0,0,0]];
 
 function test_gagne(){
     //test des alignements
-    var posesal=actualiser_pos_gagne(window.cases);
+    var posesal=actualiser_pos_gagne(Array.from(window.cases));
     var pa=teste_alignements(posesal);
     if(pa!=null){
         document.getElementById("case"+pa[3][0]+pa[3][1]).setAttribute("class","case_victoire");
@@ -16,7 +16,7 @@ function test_gagne(){
     }
     //test pour egalité
     if(window.partie=="en cour"){
-        var nbcasesvides=teste_egalite(window.cases);
+        var nbcasesvides=teste_egalite(Array.from(window.cases));
         if(nbcasesvides==0){
             window.gagne=0;
             window.partie="finie";
@@ -33,36 +33,76 @@ function jouerbotalea(){
     jouer(cx,cy,isbot=true);
 }
 
-function eval_pos(plateau){
+function eval_pos(plateau,joueur){
     var position=1; // 0=faut pas 1=bof 2=bien
     //on teste si le bot gagne
     var posal=actualiser_pos_gagne(plateau);
-    var pa=teste_alignements(posesal);
+    var pa=teste_alignements(posal);
     //l'un des deux joueurs a gagne
     if(pa!=null){
-        if(pa[0]==window.ajouer){ position=2; } 
+        if(pa[0]==joueur){ position=2; } 
         else{ position=0; }
     }
     return position;
 }
 
-function rech_arbre(plateau){
-    //on regarde les coups possibles
-    var coupos={};
+function pcoup(cx,cy,plateau,joueur){
+    plat=Array.from(plateau);
+    plat[cx][cy]=joueur;
+    return plat;
+}
+
+function ccoups(pcases){
+    var coupos=[];
     for(x=0;x<3;x++){
         for(y=0;y<3;y++){
-            if(plateau[x][y]==0){ coupos[x,y]=Array.from(plateau); }
+            if(pcases[x][y]==0){ coupos.push([x,y]); }
         }
     }
+    return coupos;
+}
+
+function rech_arbre(plat,joueur){
+    //console.log(plat,joueur);
+    var listeev={};
+    //on regarde les coups possibles
+    //console.log("plateau : ",plat);
+    var coupos=ccoups(plat);
     //on va tester chaque coup
+    if(coupos.length>0){
+        for(c of coupos){
+            var np=pcoup(c[0],c[1],plat,joueur);
+            if(joueur==1){ var nj=2; }
+            else{ var nj=1; }
+            var r=rech_arbre(np,nj);
+            if(r.length>0){
+                listeev[c]=r;
+            }
+        }
+    }
+    return listeev;
+}
+
+function choice_arbre(plateau,joueur){
+    console.log("debut choice arbre");
+    var arbre=rech_arbre(plateau,joueur);
+    console.log("arbre : ",arbre);
+    var ka=Object.keys(arbre);
+    var c=ka[parseInt(Math.random()*ka.length)];
+    if(!(c==undefined) && c.length==2 ){
+        cx,cy=c;
+        return cx,cy;
+    }
+    else{
+        cx=parseInt(Math.random()*3);
+        cy=parseInt(Math.random()*3);
+        return cx,cy;
+    }
 }
 
 function bot_arbre_jouer(){
     //on va chercher la meilleure case
-
-    //
-    cx=parseInt(Math.random()*3);
-    cy=parseInt(Math.random()*3);
+    cx,cy=choice_arbre(Array.from(window.cases),window.ajouer);
     //on joue
     jouer(cx,cy,isbot=true);
 }
