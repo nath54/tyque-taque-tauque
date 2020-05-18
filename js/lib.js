@@ -1,6 +1,4 @@
 
-
-
 function nettoyage_table(){
     for(x=0;x<=2;x++){
         for(y=0;y<=2;y++){
@@ -13,7 +11,18 @@ function nettoyage_table(){
     }
 }
 
-
+function actualiser_pos_gagne(lcases){
+    return [
+        [lcases[0][0],lcases[1][0],lcases[2][0],[0,0],[1,0],[2,0]],
+        [lcases[0][1],lcases[1][1],lcases[2][1],[0,1],[1,1],[2,1]],
+        [lcases[0][2],lcases[1][2],lcases[2][2],[0,2],[1,2],[2,2]],
+        [lcases[0][0],lcases[0][1],lcases[0][2],[0,0],[0,1],[0,2]],
+        [lcases[1][0],lcases[1][1],lcases[1][2],[1,0],[1,1],[1,2]],
+        [lcases[2][0],lcases[2][1],lcases[2][2],[2,0],[2,1],[2,2]],
+        [lcases[0][0],lcases[1][1],lcases[2][2],[0,0],[1,1],[2,2]],
+        [lcases[2][0],lcases[1][1],lcases[0][2],[2,0],[1,1],[0,2]]
+    ];
+}
 function teste_alignements(posesal){
     if(window.partie=="en cour"){
         for(pa of posesal){
@@ -33,17 +42,4 @@ function teste_egalite(lcases){
     return nbcasesvides;
 }
 
-
-function actualiser_pos_gagne(lcases){
-    return [
-        [lcases[0][0],lcases[1][0],lcases[2][0],[0,0],[1,0],[2,0]],
-        [lcases[0][1],lcases[1][1],lcases[2][1],[0,1],[1,1],[2,1]],
-        [lcases[0][2],lcases[1][2],lcases[2][2],[0,2],[1,2],[2,2]],
-        [lcases[0][0],lcases[0][1],lcases[0][2],[0,0],[0,1],[0,2]],
-        [lcases[1][0],lcases[1][1],lcases[1][2],[1,0],[1,1],[1,2]],
-        [lcases[2][0],lcases[2][1],lcases[2][2],[2,0],[2,1],[2,2]],
-        [lcases[0][0],lcases[1][1],lcases[2][2],[0,0],[1,1],[2,2]],
-        [lcases[2][0],lcases[1][1],lcases[0][2],[2,0],[1,1],[0,2]]
-    ];
-}
 

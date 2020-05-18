@@ -33,6 +33,8 @@ function jouerbotalea(){
     jouer(cx,cy,isbot=true);
 }
 
+//INUTILE POUR L'INSTANT, PAS IMPORTANT
+/*
 function eval_pos(plateau,joueur){
     var position=1; // 0=faut pas 1=bof 2=bien
     //on teste si le bot gagne
@@ -106,7 +108,7 @@ function bot_arbre_jouer(){
     //on joue
     jouer(cx,cy,isbot=true);
 }
-
+*/
 
 
 function jouer(x,y,isbot=false){
@@ -143,8 +145,6 @@ function jouer(x,y,isbot=false){
     
 }
 
-
-
 function init_partie(){
     //
     nettoyage_table();
@@ -168,9 +168,6 @@ function init_partie(){
         if(window.js[window.ajouer-1]=="bot - fort"){ bot_arbre_jouer(); }
     }
 }
-
-
-
 
 function finit_partie(){
     var txt="égalité";
