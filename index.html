@@ -1,99 +1,22 @@
 <html>
-    <head>
+    <body>
         <meta charset="utf-8" />
-        <title>Tyque-Taque-Tauque</title>
-        <!--Style du jeu-->
-        <link href="css/index.css" rel="stylesheet" />
-    </head>
-    <body onload="init_partie();">
-        <div class="page">
-            <h1>Bienvenue au jeu du <span id="nomj">Tyque-Taque-Tauque</span> !</h1>
-            <!--Choix joueurs-->
-            <table>
-                <tr>
-                    <td>
-                        <p>Joueur 1 :</p>
-                    </td>
-                    <td>
-                        <select id="tj1">
-                            <option>humain</option>
-                            <option>bot - aléatoire</option>
-                            <!-- <option>bot - fort</option> -->
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Joueur 2 :</p>
-                    </td>
-                    <td>
-                        <select id="tj2">
-                            <option>humain</option>
-                            <option>bot - aléatoire</option>
-                            <!-- <option>bot - fort</option> -->
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Couleur joueur 1 :</p>
-                    </td>
-                    <td>
-                        <input id="clj1" type="color" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Couleur joueur 2 :</p>
-                    </td>
-                    <td>
-                        <input id="clj2" type="color" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Pion joueur 1 :</p>
-                    </td>
-                    <td>
-                        <input id="pj1" type="text" value="X" maxlength="1" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Pion joueur 2 :</p>
-                    </td>
-                    <td>
-                        <input id="pj2" type="text" value="O" maxlength="1" />
-                    </td>
-                </tr>
-                <!-- Annonce gagnant -->
-                <h2 id="gagnant"></h2>
-            </table>
-            <!--Bouton Nouvelle Partie-->
-            <button onclick="init_partie();">Nouvelle partie</button>
-            <!--Plateau-->
-            <br />
-            <table>
-                <tr>
-                    <td> <div id="case00" class="case" onclick="jouer(0,0);"></div> </td>
-                    <td> <div id="case10" class="case" onclick="jouer(1,0);"></div> </td>
-                    <td> <div id="case20" class="case" onclick="jouer(2,0);"></div> </td>
-                </tr>
-                <tr>
-                    <td> <div id="case01" class="case" onclick="jouer(0,1);"></div> </td>
-                    <td> <div id="case11" class="case" onclick="jouer(1,1);"></div> </td>
-                    <td> <div id="case21" class="case" onclick="jouer(2,1);"></div> </td>
-                </tr>
-                <tr>
-                    <td> <div id="case02" class="case" onclick="jouer(0,2);"></div> </td>
-                    <td> <div id="case12" class="case" onclick="jouer(1,2);"></div> </td>
-                    <td> <div id="case22" class="case" onclick="jouer(2,2);"></div> </td>
-                </tr>
-            </table>
-        </div>
-        
+        <title>Tyque Taque Tauque</title>
+        <link href="index.css" rel="stylesheet" />
     </body>
-    <!-- Scripts du jeu-->
-    <script src="js/lib.js" type="text/javascript"></script>
-    <script src="js/game.js" type="text/javascript"></script>
-</html>
+    <body>
+        <div id="page">
+            <h1>Bienvenue !</h1>
+            <p>Vous voulez jouer au célèbre jeu <span>Tyque Taque Tauque</span> ? </p>
+            <p>Eh bien vous êtes au bon endroit !</p>
+            <p>Vous pouvez meme choisir la taille du plateau !</p>
+            <p><b>Taille du plateau : </b><input id="itaille" type="text" value="3" /></p>
+            <p><b>Nombre de pions a aligner : </b><input id="inbl" type="text" value="3" /></p>
+            <button onclick="play();">Jouer !</button>
+            <p>
+                <a href="original_game/index.html">Jouer au jeu original</a>
+            </p>
+        </div>
+    </body>
+    <script src="index.js" type="text/javascript"></script>
+</html> 
