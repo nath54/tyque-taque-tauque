@@ -21,7 +21,7 @@ function actualiser_pos_gagne(lcases,nbl=3,tx=3,ty=3){
                 var l1=[];
                 var l2=[];
                 for(xx=0;xx<nbl;xx++){
-                    l1.push([lcases[x+xx][y]])
+                    l1.push(lcases[x+xx][y])
                     l2.push([x+xx,y])
                 }
                 //on garde la syntaxe que j'avais mis à la base
@@ -35,7 +35,7 @@ function actualiser_pos_gagne(lcases,nbl=3,tx=3,ty=3){
                 var l1=[];
                 var l2=[];
                 for(yy=0;yy<nbl;yy++){
-                    l1.push([lcases[x][y+yy]])
+                    l1.push(lcases[x][y+yy])
                     l2.push([x,y+yy])
                 }
                 //on garde la syntaxe que j'avais mis à la base
@@ -49,7 +49,7 @@ function actualiser_pos_gagne(lcases,nbl=3,tx=3,ty=3){
                 var l1=[];
                 var l2=[];
                 for(xy=0;xy<nbl;xy++){
-                    l1.push([lcases[x+xy][y+xy]])
+                    l1.push(lcases[x+xy][y+xy])
                     l2.push([x+xy,y+xy])
                 }
                 //on garde la syntaxe que j'avais mis à la base
@@ -63,7 +63,7 @@ function actualiser_pos_gagne(lcases,nbl=3,tx=3,ty=3){
                 var l1=[];
                 var l2=[];
                 for(xy=0;xy<nbl;xy++){
-                    l1.push([lcases[x-xy][y+xy]])
+                    l1.push(lcases[x-xy][y+xy])
                     l2.push([x-xy,y+xy])
                 }
                 //on garde la syntaxe que j'avais mis à la base
@@ -74,7 +74,7 @@ function actualiser_pos_gagne(lcases,nbl=3,tx=3,ty=3){
             }
         }
     }
-    console.log(liste);
+    //console.log(liste);
     return liste;
 }
 
@@ -94,10 +94,16 @@ function actualiser_pos_gagne(lcases){
 }
 */
 
-function teste_alignements(posesal){
+function teste_alignements(posesal,nbl=3){
     if(window.partie=="en cour"){
         for(pa of posesal){
-            if((pa[0]==1 && pa[1]==1 && pa[2]==1) || (pa[0]==2 && pa[1]==2 && pa[2]==2)){ return pa; }
+            var cond=true;
+            var a=pa[0];
+            if(a==0){ cond=false; }
+            for(i=1;i<nbl;i++){
+                if(pa[i]!=a){ cond=false; }
+            }
+            if(cond){ return pa; }
         }
     }
     return null;
